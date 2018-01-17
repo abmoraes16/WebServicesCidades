@@ -29,6 +29,7 @@ namespace WebServicesCidades
                 app.UseDeveloperExceptionPage();
             }
             
+            //Configurar que vai usar o MVC
             app.UseMvc();
 
             app.Run(async (context) =>

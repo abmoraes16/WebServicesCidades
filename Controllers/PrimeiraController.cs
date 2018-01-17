@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebServicesCidades.Models;
 
@@ -9,13 +10,28 @@ namespace WebServicesCidades.Controllers
     public class PrimeiraController:Controller
     {
         Cidades cidade = new Cidades();
+        DAOCidades dao = new DAOCidades();
 
         //[HttpGet("{id}")] 
         [HttpGet] 
         public IEnumerable<Cidades> Get(){
-            return cidade.Listar();
+            return dao.Listar();
         }
 
+        [HttpGet("{id}",Name="CidadeAtual")]
+        public Cidades Get(int id){
+            return dao.Listar().Where(x=>x.Id==id).FirstOrDefault();
+        }
+        [HttpPost]        
+        public IActionResult Post([FromBody]Cidades cidade){
+            dao.Cadastro(cidade);
+            return CreatedAtRoute("CidadeAtual",new{Id=cidade.Id},cidade);
+        }
+
+        [HttpDelete]
+        public void Excluir([FromRoute]int id){
+            dao.Excluir(id);
+        }
 
     }
 }
