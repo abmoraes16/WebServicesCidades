@@ -88,6 +88,7 @@ namespace WebServicesCidades.Models
         public bool Excluir(int id){
             bool resultado = false;
             try{
+                Console.WriteLine(id);
                 conn = new SqlConnection(conexao);
                 conn.Open();
                 cmd = new SqlCommand();

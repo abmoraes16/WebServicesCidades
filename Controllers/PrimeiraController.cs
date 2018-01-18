@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,16 @@ namespace WebServicesCidades.Controllers
             return CreatedAtRoute("CidadeAtual",new{Id=cidade.Id},cidade);
         }
 
-        [HttpDelete]
-        public void Excluir([FromRoute]int id){
-            dao.Excluir(id);
+        [HttpPut]        
+        public IActionResult Put([FromBody]Cidades cidade){
+            dao.Atualizar(cidade);
+            return CreatedAtRoute("CidadeAtual",new{Id=cidade.Id},cidade);
+        } 
+
+        [HttpDelete("{id}")]
+        public IActionResult Excluir(int id){
+            dao.Excluir(id).ToString();
+            return Ok(id);
         }
 
     }
